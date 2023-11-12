@@ -18,9 +18,8 @@ import MyCoures from "./pages/MyCourses";
 import MyClass from "./pages/MyClass";
 
 
-
 function App() {
-
+   console.log('App Render');
   // Getting Token
   const token = secureLocalStorage.getItem("token");
   useLayoutEffect(() => {

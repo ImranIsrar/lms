@@ -11,7 +11,8 @@ import filterCourse from '../../Services/filterCourse'
 // import useSavedUser from '../../hooks/SavedUser'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCirclePlay } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faCirclePlay } from '@fortawesome/free-solid-svg-icons'
+import ThemeButton from '../../components/resuable/widgets/Button'
 
 
 const MyCoures = () => {
@@ -28,7 +29,8 @@ const MyCoures = () => {
   const [myCourses, setMyCourses] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   // let myCouresArray = [];
-  useEffect(() => {
+  if(user) {
+    useEffect(() => {
       const getMyCourse = () => {
         filterCourse.getMyCourse(null, user.id)
           .then((res) => {
@@ -42,7 +44,8 @@ const MyCoures = () => {
           });
       }
       getMyCourse();
-  }, [user.id]);
+    }, [user.id]);
+  }
 
   return (
     <>
@@ -84,7 +87,20 @@ const MyCoures = () => {
                     <h2>You do't Selected Course Yet</h2>
                   )
                 ) : (
-                  <h1>Loading ...</h1>
+                  user ? (
+                    <h1>Loading ...</h1>
+                  ) : (
+                    <div className="cart-box text-center">
+                      <h1 className="font-weight-bolder">Signin First</h1>
+
+                      <ThemeButton
+                        buttonText="Signin"
+                        buttonLink="/auth"
+                        buttonClass="btn default-btn"
+                        buttonBeforeIcon={<FontAwesomeIcon icon={faArrowRight} />}
+                      />
+                    </div>
+                  )
                 )
               }
             </Row>

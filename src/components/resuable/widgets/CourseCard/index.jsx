@@ -1,10 +1,13 @@
 
 import { Button, Card } from "react-bootstrap";
-import ThemeButton from "../Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+import ThemeButton from "../Button";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 
 const CourseCard = ({
   id, img, heading, text, link, cardClass,
@@ -12,7 +15,7 @@ const CourseCard = ({
   oldPrice, newPrice,
   handleAddToCart
 }) => {
-
+  console.log('Course Card Run');
   const { courseUniqueId } = useSelector((state) => state.app);
 
   return (

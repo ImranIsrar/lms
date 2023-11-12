@@ -1,18 +1,18 @@
 
 import { Button, Col, Form, InputGroup, Pagination, Row } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SectionTitle from "../../components/resuable/widgets/SectionTitle";
 import CourseCard from "../../components/resuable/widgets/CourseCard";
 import { getCoursesWithPage } from "../../features/lmsSlice";
-import handleAddToCart from "../../hooks/handleAddToCart";
+import usehandleAddToCart from "../../hooks/handleAddToCart";
+import InnerBaner from "../../components/resuable/InnerBaner";
+import Layout from "../../components/resuable/widgets/Layout";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import InnerBaner from "../../components/resuable/InnerBaner";
-import Layout from "../../components/resuable/widgets/Layout";
+
 
 
 const Courses = () => {
@@ -30,7 +30,6 @@ const Courses = () => {
 
   // Get All Courses Based On Page
   useEffect(() => {
-    
     dispatch(getCoursesWithPage(paged));
   }, [paged.page, totalPages]);
 
@@ -49,11 +48,11 @@ const Courses = () => {
           : 1
       );
     }
-  }, [courses.data, paged.limit, paged.page]);
+  }, [paged.page]);
 
 
   const handlePagination = (page) => {
-
+    
     setPaged(prevState => ({
       ...prevState,
       page: page
@@ -62,7 +61,7 @@ const Courses = () => {
 
   // Previous Page
   const handlePrevPage = () => {
-
+    
     setPaged(prevState => ({
       ...prevState,
       page: paged.page > 1 ? (paged.page - 1) : 1,
@@ -71,6 +70,7 @@ const Courses = () => {
 
   // Next Page
   const handleNextPage = () => {
+    
     setPaged(prevState => ({
       ...prevState,
       page: paged.page != totalPages ? (paged.page + 1) : totalPages,
@@ -79,6 +79,7 @@ const Courses = () => {
 
   // Arrange Order (Ascending / Desdending)
   const handleSordBy = (changeValue) => {
+    
     if (changeValue == 'ASC') {
 
       let coursesArray = [...allCourses];
@@ -104,7 +105,7 @@ const Courses = () => {
 
   // OnkeyUp Search
   const hanleSearch = (changeValue) => {
-
+    
     let coursesArray = [...allCourses];
     const filtered = coursesArray.filter((course) => {
       return course.title.toLowerCase().includes(changeValue.toLowerCase());
@@ -116,6 +117,12 @@ const Courses = () => {
     { "name": 'home', "slug": "/" },
     { "name": 'courses', "slug": "/courses" }
   ];
+
+
+  // Handle Add To Cart
+  const handleAddToCart = useCallback((item) => {
+    usehandleAddToCart(item, dispatch)
+  }, [dispatch]);
 
   return (
     <>
@@ -194,7 +201,7 @@ const Courses = () => {
                   authorImg={item?.author?.author_img ? `${imagePath}/${item?.author?.author_img}` : 'https://via.placeholder.com/25x25.png'}
                   oldPrice={item?.old_price && item?.old_price}
                   newPrice={item?.price ? item?.price : 0}
-                  handleAddToCart={() => handleAddToCart(item, dispatch)}
+                  handleAddToCart={() => handleAddToCart(item)}
                 />
               </Col>
             ))

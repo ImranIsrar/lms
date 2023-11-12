@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 import lmsSlice from "../features/lmsSlice";
 
 
+
 // Combine your Redux slices into a root reducer.
 const reducers = combineReducers({
   app: lmsSlice,
@@ -20,10 +21,17 @@ const persistConfig = {
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
+
 export const store = configureStore({
   reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== 'production',
   middleware: [thunk],
 });
-
 export const persistor = persistStore(store);
+
+
+
+// Reset Redux Persits
+export const resetPersistedState = () => {
+  persistStore(store).purge(['lmsSlice']);
+};

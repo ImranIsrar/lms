@@ -11,7 +11,7 @@ import { userLogout } from "../../features/lmsSlice";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faArrowRightFromBracket, faBook, faCartShopping, faCreditCard, faHeart, faUser } from "@fortawesome/free-solid-svg-icons"
-import { persistor } from "../../app/store";
+import { resetPersistedState, store } from "../../app/store";
 
 const Header = () => {
 
@@ -39,6 +39,8 @@ const Header = () => {
   // Get User
   const data = secureLocalStorage.getItem('authUser');
   const isUser = (data && data !== 'undefined' && data != undefined) ? JSON.parse(data) : null;
+  // const [isUser, setIsUser] = useState(parseData);
+  // console.log('isUser', isUser)
 
   return (
     <>
@@ -74,7 +76,9 @@ const Header = () => {
                         buttonHandle={
                           (e) => {
                             dispatch(userLogout());
-                            persistor.purge(); //  clears the persisted state data
+                            secureLocalStorage.removeItem('authUser');
+                            // setIsUser(null);
+                            resetPersistedState(store); //  clears the persisted state data
                           }
                         }
                       />
@@ -180,7 +184,9 @@ const Header = () => {
                           <Dropdown.Item as={Link} to="#" className="default-btn"
                             onClick={(e) => {
                                 dispatch(userLogout());
-                                persistor.purge(); // clears the persisted state data
+                                secureLocalStorage.removeItem('authUser');
+                                // setIsUser(null);
+                                resetPersistedState(store); 
                               }
                             }
                           >

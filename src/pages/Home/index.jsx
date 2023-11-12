@@ -1,9 +1,8 @@
 
-import { useEffect, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Card, Col, Row } from 'react-bootstrap';
-import OwlCarousel from 'react-owl-carousel2';
 
 import HeroBanner from '../../components/HeroBanner'
 import SectionTitle from '../../components/resuable/widgets/SectionTitle'
@@ -11,11 +10,13 @@ import CourseCard from '../../components/resuable/widgets/CourseCard';
 import ThemeButton from '../../components/resuable/widgets/Button';
 import CategoryBox from '../../components/resuable/widgets/CategoryBox';
 import filterCourse from '../../Services/filterCourse';
-import handleAddToCart from '../../hooks/handleAddToCart';
+import usehandleAddToCart from '../../hooks/handleAddToCart';
 import Layout from '../../components/resuable/widgets/Layout';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
+const OwlCarousel = lazy(() => import('react-owl-carousel2'));
 
 
 const Home = () => {
@@ -36,7 +37,7 @@ const Home = () => {
 
   // Getting Courses
   useEffect(() => {
-    console.log('Home UseEffect');
+    console.log('Home Render');
     // Get Popular Course
     const getPopularCourses = () => {
       filterCourse.getFilterCourse(null, 'popular', 'y')
@@ -106,6 +107,11 @@ const Home = () => {
     }
     getCategories();
   }, []);
+  
+  // Handle Add To Cart
+  const handleAddToCart = useCallback((item) => {
+    usehandleAddToCart(item, dispatch)
+  }, [dispatch]);
 
   // Owl Carousel Configuration
   const testimonialOptions = {
@@ -137,7 +143,7 @@ const Home = () => {
             ) : (
               course?.popularCourses &&
               course?.popularCourses?.map((item, index) => (
-                <Col lg={3} key={index} className="d-flex">
+                <Col lg={3} key={item.id} className="d-flex">
                   <CourseCard
                     id={item?.id}
                     img={item?.img ? `${imagePath}/${item?.img}` : 'https://via.placeholder.com/261x174.png'}
@@ -149,7 +155,7 @@ const Home = () => {
                     authorImg={item?.author?.author_img ? `${imagePath}/${item?.author?.author_img}` : 'https://via.placeholder.com/25x25.png'}
                     oldPrice={item?.old_price && item?.old_price}
                     newPrice={item?.price ? item?.price : 0}
-                    handleAddToCart={() => handleAddToCart(item, dispatch)}
+                    handleAddToCart={() => handleAddToCart(item)}
                   />
                 </Col>
               ))
@@ -196,7 +202,7 @@ const Home = () => {
                     authorImg={item?.author?.author_img ? `${imagePath}/${item?.author?.author_img}` : 'https://via.placeholder.com/25x25.png'}
                     oldPrice={item?.old_price && item?.old_price}
                     newPrice={item?.price ? item?.price : 0}
-                    handleAddToCart={() => handleAddToCart(item, dispatch)}
+                    handleAddToCart={() => handleAddToCart(item)}
                   />
                 </Col>
               ))
@@ -243,7 +249,7 @@ const Home = () => {
                     authorImg={item?.author?.author_img ? `${imagePath}/${item?.author?.author_img}` : 'https://via.placeholder.com/25x25.png'}
                     oldPrice={item?.old_price && item?.old_price}
                     newPrice={item?.price ? item?.price : 0}
-                    handleAddToCart={() => handleAddToCart(item, dispatch)}
+                    handleAddToCart={() => handleAddToCart(item)}
                   />
                 </Col>
               ))
@@ -372,91 +378,93 @@ const Home = () => {
             <div className="online-edu-content">
               <h2 className="mb-3">Our Students Are Our Strength. See What They Say About Us</h2>
 
-              <OwlCarousel options={testimonialOptions}>
-                <div className='item'>
-                  <Card className="border-0 testimonial-user">
-                    <Card.Body className="p-0">
-                      <div className="testimonial-user-content mb-3">
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                      </div>
-
-                      <div className="testimonial-user-info d-flex align-items-center flex-wrap">
-                        <div className="testimonial-user-img">
-                          <img src={`${imagePath}/author-1.jpg`} alt=""
-                            width="55"
-                            height="55"
-                            className="rounded-circle"
-                            style={{ maxWidth: '55px' }}
-                          />
+              <Suspense fallback={'Loading ...'}>
+                <OwlCarousel options={testimonialOptions}>
+                  <div className='item'>
+                    <Card className="border-0 testimonial-user">
+                      <Card.Body className="p-0">
+                        <div className="testimonial-user-content mb-3">
+                          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
                         </div>
 
-                        <div className="testimonial-user-title">
-                          <h6 className="mb-0">
-                            Jhon Smith
-                            <span>, React Developer</span>
-                          </h6>
+                        <div className="testimonial-user-info d-flex align-items-center flex-wrap">
+                          <div className="testimonial-user-img">
+                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                              width="55"
+                              height="55"
+                              className="rounded-circle"
+                              style={{ maxWidth: '55px' }}
+                            />
+                          </div>
+
+                          <div className="testimonial-user-title">
+                            <h6 className="mb-0">
+                              Jhon Smith
+                              <span>, React Developer</span>
+                            </h6>
+                          </div>
                         </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
 
-                <div className='item'>
-                  <Card className="border-0 testimonial-user">
-                    <Card.Body className="p-0">
-                      <div className="testimonial-user-content mb-3">
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                      </div>
-
-                      <div className="testimonial-user-info d-flex align-items-center flex-wrap">
-                        <div className="testimonial-user-img">
-                          <img src={`${imagePath}/author-1.jpg`} alt=""
-                            width="55"
-                            height="55"
-                            className="rounded-circle"
-                            style={{ maxWidth: '55px' }}
-                          />
-                        </div>
-
-                        <div className="testimonial-user-title">
-                          <h6 className="mb-0">
-                            Jhon Smith
-                            <span>, React Developer</span>
-                          </h6>
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </div>
-
-                <div className='item'>
-                  <Card className="border-0 testimonial-user">
-                    <Card.Body className="p-0">
-                      <div className="testimonial-user-content mb-3">
-                        <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
-                      </div>
-
-                      <div className="testimonial-user-info d-flex align-items-center flex-wrap">
-                        <div className="testimonial-user-img">
-                          <img src={`${imagePath}/author-1.jpg`} alt=""
-                            width="55"
-                            height="55"
-                            className="rounded-circle"
-                            style={{ maxWidth: '55px' }}
-                          />
+                  <div className='item'>
+                    <Card className="border-0 testimonial-user">
+                      <Card.Body className="p-0">
+                        <div className="testimonial-user-content mb-3">
+                          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
                         </div>
 
-                        <div className="testimonial-user-title">
-                          <h6 className="mb-0">
-                            Jhon Smith
-                            <span>, React Developer</span>
-                          </h6>
+                        <div className="testimonial-user-info d-flex align-items-center flex-wrap">
+                          <div className="testimonial-user-img">
+                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                              width="55"
+                              height="55"
+                              className="rounded-circle"
+                              style={{ maxWidth: '55px' }}
+                            />
+                          </div>
+
+                          <div className="testimonial-user-title">
+                            <h6 className="mb-0">
+                              Jhon Smith
+                              <span>, React Developer</span>
+                            </h6>
+                          </div>
                         </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </OwlCarousel>
+                      </Card.Body>
+                    </Card>
+                  </div>
+
+                  <div className='item'>
+                    <Card className="border-0 testimonial-user">
+                      <Card.Body className="p-0">
+                        <div className="testimonial-user-content mb-3">
+                          <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+                        </div>
+
+                        <div className="testimonial-user-info d-flex align-items-center flex-wrap">
+                          <div className="testimonial-user-img">
+                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                              width="55"
+                              height="55"
+                              className="rounded-circle"
+                              style={{ maxWidth: '55px' }}
+                            />
+                          </div>
+
+                          <div className="testimonial-user-title">
+                            <h6 className="mb-0">
+                              Jhon Smith
+                              <span>, React Developer</span>
+                            </h6>
+                          </div>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </div>
+                </OwlCarousel>
+              </Suspense>
             </div>
           </Col>
         </Row>
