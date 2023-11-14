@@ -1,14 +1,16 @@
 
-import { Card, Col, Container, Row } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
+import secureLocalStorage from 'react-secure-storage'
+import { Card, Col, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
 import ThemeButton from '../../components/resuable/widgets/Button'
 import CheckoutProduct from '../../components/CheckoutProduct'
 import StripeContainer from '../../components/StripeContainer'
 import InnerBaner from '../../components/resuable/InnerBaner'
-import secureLocalStorage from 'react-secure-storage'
+
 import Layout from '../../components/resuable/widgets/Layout'
+
 // import useSavedUser from '../../hooks/SavedUser'
 
 
@@ -21,10 +23,10 @@ const Checkout = () => {
   const data = secureLocalStorage.getItem('authUser');
   const user = (data && data !== 'undefined' && data != undefined) ? JSON.parse(data) : null;
 
-  const breadCurmbNav = [
+  const breadCurmbNav = useMemo(() => [
     { "name": 'home', "slug": "/" },
     { "name": 'Checkout', "slug": "/checkout" }
-  ];
+  ], []);
 
   return (
     <>

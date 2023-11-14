@@ -7,6 +7,7 @@ import ThemeButton from "../Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { memo } from "react";
 
 
 const CourseCard = ({
@@ -15,7 +16,6 @@ const CourseCard = ({
   oldPrice, newPrice,
   handleAddToCart
 }) => {
-  console.log('Course Card Run');
   const { courseUniqueId } = useSelector((state) => state.app);
 
   return (
@@ -145,4 +145,4 @@ const CourseCard = ({
   )
 }
 
-export default CourseCard
+export default memo(CourseCard)

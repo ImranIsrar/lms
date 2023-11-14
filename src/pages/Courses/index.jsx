@@ -1,6 +1,6 @@
 
 import { Button, Col, Form, InputGroup, Pagination, Row } from "react-bootstrap";
-import { Fragment, useCallback, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import SectionTitle from "../../components/resuable/widgets/SectionTitle";
@@ -30,12 +30,13 @@ const Courses = () => {
 
   // Get All Courses Based On Page
   useEffect(() => {
+    console.log('Courses Run')
     dispatch(getCoursesWithPage(paged));
   }, [paged.page, totalPages]);
 
 
   // This useEffect will run whenever courses.data changes
-  useEffect(() => {
+  useMemo(() => {
     
     if (courses.data) {
       console.log('Course Page useEffect', courses.data)
@@ -104,8 +105,8 @@ const Courses = () => {
   }
 
   // OnkeyUp Search
-  const hanleSearch = (changeValue) => {
-    
+  const hanleSearch = (e,changeValue) => {
+    e.preventDefault();
     let coursesArray = [...allCourses];
     const filtered = coursesArray.filter((course) => {
       return course.title.toLowerCase().includes(changeValue.toLowerCase());
@@ -113,16 +114,18 @@ const Courses = () => {
     setFilterCourses(filtered);
   }
 
-  const breadCurmbNav = [
-    { "name": 'home', "slug": "/" },
-    { "name": 'courses', "slug": "/courses" }
-  ];
-
 
   // Handle Add To Cart
   const handleAddToCart = useCallback((item) => {
     usehandleAddToCart(item, dispatch)
   }, [dispatch]);
+
+
+  const breadCurmbNav = useMemo(() => [
+    { "name": 'home', "slug": "/" },
+    { "name": 'courses', "slug": "/courses" }
+  ], []);
+
 
   return (
     <>
@@ -158,7 +161,7 @@ const Courses = () => {
                         aria-label="Sort By"
                         aria-describedby="filter-course"
                         className="border-0 bg-transparent py-0 rounded-0"
-                        onChange={(e) => hanleSearch(e.target.value)}
+                        onChange={(e) => hanleSearch(e, e.target.value)}
                       />
                       <Button type="submit" variant="" id="filter-course" className="p-0" style={{ color: 'var(--primary)' }}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />

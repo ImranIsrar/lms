@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react'
-import { Badge, Button, Card, Col, Form, OverlayTrigger, Row, Tab, Tabs, Tooltip } from 'react-bootstrap'
+import { Button, Card, Col, Form, OverlayTrigger, Row, Tab, Tabs, Tooltip } from 'react-bootstrap'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { faCirclePlay, faCode, faFile, faFileCsv, faFileExcel, faFilePdf, faFile
 
 const MyClass = () => {
 
+  console.warn("myClass RUn")
   // Image Path
   const imagePath = import.meta.env.VITE_IMAGES_PATH;
   const { title } = useParams();                                        // Get Params Title

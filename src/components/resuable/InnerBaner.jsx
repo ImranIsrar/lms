@@ -1,10 +1,11 @@
 
-import { Fragment } from "react"
+import React, { Fragment, memo } from "react"
 import { Container } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 
 const InnerBaner = ({ heading, breadcurmb }) => {
+  console.warn('Innner banner')
   return (
     <>
       <section className="custom-header background position-relative pt-100 pb-100">
@@ -39,4 +40,4 @@ const InnerBaner = ({ heading, breadcurmb }) => {
   )
 }
 
-export default InnerBaner
+export default memo(InnerBaner)

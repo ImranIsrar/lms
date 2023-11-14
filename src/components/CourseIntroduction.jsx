@@ -4,7 +4,7 @@ import { Card, Col, Row, Tab, Tabs } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
 import filterCourse from '../Services/filterCourse';
-import { faClock, faDesktop, faDownload, faGraduationCap, faSignal, faUnlockKeyhole, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faDownload, faGraduationCap, faSignal, faUnlockKeyhole, faUserGraduate } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ThemeButton from './resuable/widgets/Button';
 
