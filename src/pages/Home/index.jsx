@@ -1,8 +1,8 @@
 
 import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { Card, Col, Row } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import HeroBanner from '../../components/HeroBanner'
 import SectionTitle from '../../components/resuable/widgets/SectionTitle'
@@ -15,6 +15,7 @@ import Layout from '../../components/resuable/widgets/Layout';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+
 
 const OwlCarousel = lazy(() => import('react-owl-carousel2'));
 
@@ -303,7 +304,7 @@ const Home = () => {
         <Row className="align-items-center flex-lg-row-reverse">
           <Col lg={6}>
             <div className="online-edu-img position-relative">
-              <img src={`${imagePath}/transform-img.png`} alt="" />
+              <LazyLoadImage src={`${imagePath}/transform-img.png`} width="645" height="547" alt="" />
             </div>
           </Col>
           <Col lg={6}>
@@ -323,7 +324,7 @@ const Home = () => {
       {/* Why Chosse Us */}
       <Layout
         secClass="why-chosse-us bg-gray position-relative pt-100 pb-70"
-        secAfterContainerContent={<img src={`${imagePath}/feature-shape-1.svg`} className="shape shape-1" alt="" />}
+        secAfterContainerContent={<LazyLoadImage src={`${imagePath}/feature-shape-1.svg`} width="144" height="136" className="shape shape-1" alt="" />}
       >
         <SectionTitle
           subHeading="Our Features"
@@ -334,7 +335,7 @@ const Home = () => {
         <Row>
           <Col lg={3} md={6}>
             <div className="single-features text-center">
-              <img src={`${imagePath}/feature-1.svg`} alt="" className="mb-4" />
+              <LazyLoadImage src={`${imagePath}/feature-1.svg`} width="120" height="120" alt="" className="mb-4" />
               <h4>Expert-Led Video Courses</h4>
               <p>Instructors from around the world teach millions of students on Edmy through video.</p>
             </div>
@@ -342,7 +343,7 @@ const Home = () => {
 
           <Col lg={3} md={6}>
             <div className="single-features text-center">
-              <img src={`${imagePath}/feature-1.svg`} alt="" className="mb-4" />
+              <LazyLoadImage src={`${imagePath}/feature-1.svg`} alt="" width="120" height="120" className="mb-4" />
               <h4>Expert-Led Video Courses</h4>
               <p>Instructors from around the world teach millions of students on Edmy through video.</p>
             </div>
@@ -350,7 +351,7 @@ const Home = () => {
 
           <Col lg={3} md={6}>
             <div className="single-features text-center">
-              <img src={`${imagePath}/feature-1.svg`} alt="" className="mb-4" />
+              <LazyLoadImage src={`${imagePath}/feature-1.svg`} alt="" width="120" height="120" className="mb-4" />
               <h4>Expert-Led Video Courses</h4>
               <p>Instructors from around the world teach millions of students on Edmy through video.</p>
             </div>
@@ -358,7 +359,7 @@ const Home = () => {
 
           <Col lg={3} md={6}>
             <div className="single-features text-center">
-              <img src={`${imagePath}/feature-1.svg`} alt="" className="mb-4" />
+              <LazyLoadImage src={`${imagePath}/feature-1.svg`} alt="" width="120" height="120" className="mb-4" />
               <h4>Expert-Led Video Courses</h4>
               <p>Instructors from around the world teach millions of students on Edmy through video.</p>
             </div>
@@ -371,7 +372,7 @@ const Home = () => {
         <Row className="align-items-center">
           <Col lg={6}>
             <div className="position-relative">
-              <img src={`${imagePath}/testimonial-1.png`} alt="" />
+              <LazyLoadImage src={`${imagePath}/testimonial-1.png`} width="629" height="694" alt="" />
             </div>
           </Col>
           <Col lg={6}>
@@ -389,7 +390,7 @@ const Home = () => {
 
                         <div className="testimonial-user-info d-flex align-items-center flex-wrap">
                           <div className="testimonial-user-img">
-                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                            <LazyLoadImage src={`${imagePath}/author-1.jpg`} alt=""
                               width="55"
                               height="55"
                               className="rounded-circle"
@@ -417,7 +418,7 @@ const Home = () => {
 
                         <div className="testimonial-user-info d-flex align-items-center flex-wrap">
                           <div className="testimonial-user-img">
-                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                            <LazyLoadImage src={`${imagePath}/author-1.jpg`} alt=""
                               width="55"
                               height="55"
                               className="rounded-circle"
@@ -445,7 +446,7 @@ const Home = () => {
 
                         <div className="testimonial-user-info d-flex align-items-center flex-wrap">
                           <div className="testimonial-user-img">
-                            <img src={`${imagePath}/author-1.jpg`} alt=""
+                            <LazyLoadImage src={`${imagePath}/author-1.jpg`} alt=""
                               width="55"
                               height="55"
                               className="rounded-circle"
@@ -474,27 +475,27 @@ const Home = () => {
       <Layout secClass="brands bg-gray pt-100 pb-100">
         <Row>
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
           </Col>
 
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-2.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-2.png`} alt="" width="145" height="125" />
           </Col>
 
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
           </Col>
 
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
           </Col>
 
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
           </Col>
 
           <Col lg={2} md={4} sm={6}>
-            <img src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
+            <LazyLoadImage src={`${imagePath}/brand-1.png`} alt="" width="145" height="125" />
           </Col>
         </Row>
       </Layout>
@@ -504,7 +505,7 @@ const Home = () => {
         <Row className="align-items-center flex-lg-row-reverse">
           <Col lg={6}>
             <div className="online-edu-img position-relative">
-              <img src={`${imagePath}/teaching-img.png`} alt="" />
+              <LazyLoadImage src={`${imagePath}/teaching-img.png`} width="712" height="492" alt="" />
             </div>
           </Col>
           <Col lg={6}>
@@ -516,11 +517,11 @@ const Home = () => {
                 <Col lg={6} sm={6}>
                   <ul className="become-insturctor-list">
                     <li className="d-flex align-items-center">
-                      <img src={`${imagePath}/teaching-icon-1.svg`} alt="" />
+                      <LazyLoadImage src={`${imagePath}/teaching-icon-1.svg`} width="40" height="39" alt="" />
                       <h3 className="mb-0">Expert Instruction</h3>
                     </li>
                     <li className="d-flex align-items-center">
-                      <img src={`${imagePath}/teaching-icon-3.svg`} alt="" />
+                      <LazyLoadImage src={`${imagePath}/teaching-icon-3.svg`} width="40" height="39" alt="" />
                       <h3 className="mb-0">Remote Learning</h3>
                     </li>
                   </ul>
@@ -529,11 +530,11 @@ const Home = () => {
                 <Col lg={6} sm={6}>
                   <ul className="become-insturctor-list">
                     <li className="d-flex align-items-center">
-                      <img src={`${imagePath}/teaching-icon-1.svg`} alt="" />
+                      <LazyLoadImage src={`${imagePath}/teaching-icon-1.svg`} width="40" height="39" alt="" />
                       <h3 className="mb-0">Expert Instruction</h3>
                     </li>
                     <li className="d-flex align-items-center">
-                      <img src={`${imagePath}/teaching-icon-3.svg`} alt="" />
+                      <LazyLoadImage src={`${imagePath}/teaching-icon-3.svg`} width="40" height="39" alt="" />
                       <h3 className="mb-0">Remote Learning</h3>
                     </li>
                   </ul>
@@ -557,7 +558,7 @@ const Home = () => {
           <Row className="align-items-center">
             <Col lg={7}>
               <div>
-                <img src={`${imagePath}/business-img.png`} alt="" />
+                <LazyLoadImage src={`${imagePath}/business-img.png`} width="704" height="469" alt="" />
               </div>
             </Col>
             <Col lg={5}>

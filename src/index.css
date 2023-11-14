@@ -507,6 +507,10 @@ header .navbar-nav li a:hover {
   padding: 166px 0 225px;
 }
 
+.hero-banner .container-fluid {
+  position: sticky;
+}
+
 .banner-img {
   text-align: center;
   z-index: 1;

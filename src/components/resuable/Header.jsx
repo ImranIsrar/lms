@@ -3,15 +3,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Col, Container, Dropdown, Navbar, Row } from "react-bootstrap";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import secureLocalStorage from "react-secure-storage";
 
 import ThemeButton from "./widgets/Button";
 import { userLogout } from "../../features/lmsSlice";
+import { resetPersistedState, store } from "../../app/store";
 // import useSavedUser from "../../hooks/SavedUser";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight, faArrowRightFromBracket, faBook, faCartShopping, faCreditCard, faHeart, faUser } from "@fortawesome/free-solid-svg-icons"
-import { resetPersistedState, store } from "../../app/store";
+
+
 
 const Header = () => {
 
@@ -104,7 +107,7 @@ const Header = () => {
         <Navbar expand="lg" bg="light" data-bs-theme="light">
           <Container fluid>
             <Link className="navbar-brand" to="/">
-              <img
+              <LazyLoadImage
                 src={`${import.meta.env.VITE_IMAGES_PATH}/logo.png`}
                 alt=""
                 width="134"
@@ -143,14 +146,14 @@ const Header = () => {
                     ) : (
                       <Dropdown className="user-dropdown">
                         <Dropdown.Toggle variant="" id="dropdown-basic" className="p-0 border-0">
-                          <img src={`${imagePath}/admin-9.jpg`} alt={isUser?.first_name} width="35" height="35" />
+                          <LazyLoadImage src={`${imagePath}/admin-9.jpg`} alt={isUser?.first_name} width="35" height="35" />
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                           <Dropdown.Item as={Link} to="#" className="default-btn">
                             <div className="d-flex align-items-center">
                               <div className="img">
-                                <img src={`${imagePath}/admin-9.jpg`} alt={isUser?.first_name} width="35" height="35" />
+                                <LazyLoadImage src={`${imagePath}/admin-9.jpg`} alt={isUser?.first_name} width="35" height="35" />
                               </div>
                               <span className="ps-3">
                                 <span className="fw-semibold fs-16 mb-1 d-block">{isUser?.first_name}</span>

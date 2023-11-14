@@ -1,13 +1,14 @@
 
+import { memo } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ThemeButton from "../Button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { memo } from "react";
 
 
 const CourseCard = ({
@@ -20,12 +21,12 @@ const CourseCard = ({
 
   return (
     <>
-      <Card className={cardClass && cardClass}>
+      <Card className={cardClass ? cardClass + ' overflow-hidden' : 'overflow-hidden'}>
         {/* Course Image */}
         {
           img && (
             <div className="mb-3 d-block overflow-hidden">
-              <Card.Img variant="top" src={img} className="w-100 img-fluid" />
+              <LazyLoadImage variant="top" src={img} width="306" height="204" className="w-100 img-fluid" />
             </div>
           )
         }
@@ -48,7 +49,7 @@ const CourseCard = ({
               author && (
                 <div className="admin d-flex align-items-center mb-2">
                   <div>
-                    <img
+                    <LazyLoadImage
                       src={authorImg}
                       className="rounded-circle me-2"
                       alt="Instructor"
